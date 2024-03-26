@@ -35,25 +35,59 @@
   <%= form_with(url: tasks_path, method: :get) do %>
     <%= select_tag(:status, options_for_select(@statuses, @selected_status), onchange: 'this.form.submit();') %>
   <% end %>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    <% @tasks.each do |task| %>
+  <table class="table table-dark">
+    <thead>
       <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.status %></td>
-        <td>
-          <%= link_to 'Edit', edit_task_path(task) %> |
-          <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+          <td><%= task.status %></td>
+          <td>
+            <%= link_to 'Edit', edit_task_path(task) %> |
+            <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
+<!--   <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table> -->
 </div>
 
 

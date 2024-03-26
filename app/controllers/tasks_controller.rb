@@ -10,7 +10,6 @@ class TasksController < ApplicationController
   end
 
   def create
-  	byebug
     @task = Task.new(task_params)
     if can_create_task?(@task)
       if @task.save
