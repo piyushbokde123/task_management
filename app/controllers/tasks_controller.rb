@@ -1,4 +1,10 @@
 class TasksController < ApplicationController
+	before_action :set_task, only: [:destroy, :update]
+
+	def new
+		@task = Task.new
+	end
+
 	def index
     @tasks = Task.all
     @new_task = Task.new
@@ -22,6 +28,24 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+  	@task = Task.find(params[:id])
+  end
+  
+  def update
+    @task.update(title: params[:task][:title], description: params[:task][:description], status: params[:task][:status])
+    redirect_to root_path
+  end
+
+	def destroy
+   if @task.destroy
+   	redirect_to tasks_path, alert: 'task deleted successfully'
+   else
+     redirect_to tasks_path, alert: 'task connot deleted'
+   end
+  end
+
+
   private
 
   def set_task
@@ -29,16 +53,17 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :status)
+    params.permit(:title, :description, :status)
   end
 
   def can_create_task?(new_task)
     if new_task.status == 'To Do'
       todo_tasks_count = Task.where(status: 'To Do').count
+      return true if todo_tasks_count == 0
       total_tasks_count = Task.count
       return todo_tasks_count < total_tasks_count * 0.5
     else
-      return true
+      return true 
     end
   end
 end
