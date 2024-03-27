@@ -3,7 +3,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
     @new_task = Task.new
     @statuses = ['All', 'To Do', 'In Progress', 'Done']
-    @selected_status = params[:status] || 'All'
+    @selected_status = params[:status]
     if @selected_status != 'All'
       @tasks = @tasks.where(status: @selected_status)
     end
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
       if @task.save
         redirect_to tasks_path, notice: 'Task was successfully created.'
       else
-        redirect_to tasks_path, alert: 'Error creating task.'
+        redirect_to tasks_path, alert: 'Title should not be same'
       end
     else
       redirect_to tasks_path, alert: 'Cannot create more "To Do" tasks.'

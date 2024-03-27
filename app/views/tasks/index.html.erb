@@ -1,6 +1,15 @@
 <!-- app/views/tasks/index.html.erb -->
-<h1>Tasks</h1>
-<div>
+<div lass="container-fluid"> 
+  <h1 class="mx-auto" style="width: 30rem;">Tasks</h1>
+</div>
+<% flash.each do |type, msg| %>
+  <div class="mx-auto" style="width: 30rem;">
+    <%= msg %>
+  </div>
+<% end %>
+
+<div lass="container-fluid">
+<div class="mx-auto" style="width: 30rem;">
   <%= form_with(model: @new_task, url: tasks_path, method: :post, class: "needs-validation", novalidate: true) do |form| %>
     <div class="form-group">
       <%= form.label :title, class: "form-label" %>
@@ -18,15 +27,16 @@
     </div>
     <div class="form-group">
       <%= form.label :status, class: "form-label" %>
-      <%= form.select :status, options_for_select(@statuses, @selected_status), { prompt: "Select Status" }, class: "form-control" %>
+      <%= form.select :status, options_for_select(["To Do", "In Progress", "Done"], @selected_status), { prompt: "Select Status" }, class: "form-control" %>
       <div class="invalid-feedback">
         Please select a status.
       </div>
-    </div>
-    <div class="form-group">
+    </div></br>
+    <div class="form-group ">
       <%= form.submit "Create Task", class: "btn btn-primary" %>
     </div>
   <% end %>
+</div>
 </div>
 
 
@@ -58,36 +68,6 @@
       <% end %>
     </tbody>
   </table>
-<!--   <table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table> -->
 </div>
 
 
